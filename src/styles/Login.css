@@ -1,0 +1,21 @@
+form
+{
+	display: flex;
+	flex-direction: column;
+	width: 25%;
+}
+
+fieldset
+{
+	border: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+	margin: 0.5rem 0;
+}
+
+button
+{
+	width: 20%;
+}
