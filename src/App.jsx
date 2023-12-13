@@ -8,18 +8,30 @@ const App = () =>
   const [blogs, setBlogs] = useState([]);
   const	[user, setUser] = useState(null);
 
-  useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
-  }, [])
+	useEffect(() => 
+	{
+		const	loggedUser = window.localStorage.getItem('loggedUser');
+
+		blogService.getAll().then(blogs => setBlogs( blogs ));
+		if (loggedUser)
+			setUser(JSON.parse(loggedUser));
+	}, [])
+
+	const cleanStorage = () =>
+	{
+		window.localStorage.clear();
+		setUser(null);
+	};
 
 	const blogEntries = () =>
 	{	
 		return (
 			<>
 				<h2>blogs</h2>
-				<p>{user.username} logged in</p>
+				<div>
+					<p>{user.username} logged in</p>
+					<button onClick={cleanStorage}>logout</button>
+				</div>
 				{blogs.map(blog =>
 					<Blog key={blog.id} blog={blog} />
 				)}

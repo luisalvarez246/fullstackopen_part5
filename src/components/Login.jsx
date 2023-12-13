@@ -16,6 +16,7 @@ const Login = ({ setUser }) =>
 			setUser(response);
 			setUsername('');
 			setPassword('');
+			window.localStorage.setItem('loggedUser', JSON.stringify(response));
 		}
 		catch (error)
 		{
