@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import Login from './components/Login'
+import CreateBlog from './components/CreateBlog'
 import blogService from './services/blogs'
 
 const App = () => 
@@ -14,7 +15,11 @@ const App = () =>
 
 		blogService.getAll().then(blogs => setBlogs( blogs ));
 		if (loggedUser)
-			setUser(JSON.parse(loggedUser));
+		{
+			const	parsedUser = JSON.parse(loggedUser);
+			setUser(parsedUser);
+			blogService.setToken(parsedUser.token);
+		}
 	}, [])
 
 	const cleanStorage = () =>
@@ -32,6 +37,7 @@ const App = () =>
 					<p>{user.username} logged in</p>
 					<button onClick={cleanStorage}>logout</button>
 				</div>
+				<CreateBlog setBlogs={setBlogs}/>
 				{blogs.map(blog =>
 					<Blog key={blog.id} blog={blog} />
 				)}
