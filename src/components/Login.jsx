@@ -3,7 +3,7 @@ import '../styles/Login.css'
 import	loginService from '../services/login'
 import	blogService from '../services/blogs'
 
-const Login = ({ setUser }) =>
+const Login = ({ setUser, notificationSetter }) =>
 {
 	const	[username, setUsername] = useState('');
 	const	[password, setPassword] = useState('');
@@ -19,10 +19,14 @@ const Login = ({ setUser }) =>
 			setUsername('');
 			setPassword('');
 			window.localStorage.setItem('loggedUser', JSON.stringify(response));
+			notificationSetter({ message: 'Successfully logged in' });
 		}
 		catch (error)
 		{
-			console.log(error);
+			const	newError = error.response.data.error;
+
+			console.log(newError);
+			notificationSetter({ error: newError });
 		}
 	};
 	

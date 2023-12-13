@@ -1,7 +1,7 @@
 import { useState } from "react";
 import blogService from '../services/blogs'
 
-const CreateBlog = ({ setBlogs }) =>
+const CreateBlog = ({ setBlogs, notificationSetter }) =>
 {
 	const	[formData, setFormData] = useState({
 		title: '',
@@ -16,6 +16,8 @@ const CreateBlog = ({ setBlogs }) =>
 		{
 			await blogService.saveBlog(formData);
 			const	blogs = await blogService.getAll();
+			const	newMessage = `A new blog ${formData.title} by ${formData.author} added`;
+			notificationSetter({ message: newMessage });
 			setFormData(
 			{
 				title: '',

@@ -2,12 +2,18 @@ import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import Login from './components/Login'
 import CreateBlog from './components/CreateBlog'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 
 const App = () => 
 {
-  const [blogs, setBlogs] = useState([]);
-  const	[user, setUser] = useState(null);
+	const	[blogs, setBlogs] = useState([]);
+	const	[user, setUser] = useState(null);
+	const	[notification, setNotification] = useState(
+	{
+		newMessage: '',
+		newError: ''
+	})
 
 	useEffect(() => 
 	{
@@ -26,6 +32,26 @@ const App = () =>
 	{
 		window.localStorage.clear();
 		setUser(null);
+		notificationSetter({message: 'Successfully logged out'});
+	};
+
+	const notificationSetter = (notification) =>
+	{
+		const	{ message, error } = notification;
+
+		setNotification(
+		{
+			newMessage: message,
+			newError: error
+		})
+		setTimeout(() =>
+		{
+			setNotification(
+			{
+				newMessage: '',
+				newError: ''
+			})
+		}, 5000)
 	};
 
 	const blogEntries = () =>
@@ -37,7 +63,7 @@ const App = () =>
 					<p>{user.username} logged in</p>
 					<button onClick={cleanStorage}>logout</button>
 				</div>
-				<CreateBlog setBlogs={setBlogs}/>
+				<CreateBlog setBlogs={setBlogs} notificationSetter={notificationSetter} />
 				{blogs.map(blog =>
 					<Blog key={blog.id} blog={blog} />
 				)}
@@ -47,8 +73,9 @@ const App = () =>
 
   return (
 	<>
+		<Notification message={notification.newMessage} error={notification.newError} />
 		{user === null ?
-			<Login setUser={setUser}/> :
+			<Login setUser={setUser} notificationSetter={notificationSetter} /> :
 			blogEntries()
 		}
     </>
