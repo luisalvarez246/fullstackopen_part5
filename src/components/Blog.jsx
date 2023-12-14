@@ -2,7 +2,7 @@ import { useState } from "react";
 import '../styles/Blog.css';
 import blogService from '../services/blogs';
 
-const Blog = ({ blog, setBlogs }) => 
+const Blog = ({ blog, updateBlogs, notificationSetter }) => 
 {
 	const	[showFull, setShowFull] = useState(false);
 	const	[likes, setlikes] = useState(blog.likes);
@@ -22,13 +22,32 @@ const Blog = ({ blog, setBlogs }) =>
 		try
 		{
 			await blogService.updateBlog(blog.id, updatedBlog);
-			const	blogs = await blogService.getAll();
 			setlikes(likes + 1);
-			setBlogs(blogs);
+			await updateBlogs();
 		}
 		catch(error)
 		{
-			console.log(error);
+			const	newError = error.response.data.error;
+			notificationSetter({ error: newError });
+		}
+	};
+
+	const handleDeletion = async () =>
+	{
+		if (window.confirm('You sure you want to delete this blog?'))
+		{
+			try
+			{
+				const	newMessage = `blog ${blog.title} was deleted`;
+				await blogService.deleteBlog(blog.id);
+				await updateBlogs();
+				notificationSetter({message: newMessage});
+			}
+			catch(error)
+			{
+				const	newError = error.response.data.error;
+				notificationSetter({ error: newError });
+			}
 		}
 	};
 
@@ -46,6 +65,7 @@ const Blog = ({ blog, setBlogs }) =>
 						<button onClick={handleLikes}>like</button>
 					</div>
 					<p className="blog-details">{blog.user.username}</p>
+					<button onClick={handleDeletion}>remove</button>
 				</section> :
 				<section className="blog-title">
 					{blog.title} {blog.author}
