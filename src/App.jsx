@@ -72,7 +72,7 @@ const App = () =>
 					<button onClick={cleanStorage}>logout</button>
 				</div>
 				<Togglable buttonLabel='create blog' ref={blogCreateRef}>
-					<CreateBlog setBlogs={setBlogs} notificationSetter={notificationSetter} blogCreateRef={blogCreateRef}/>
+					<CreateBlog updateBlogs={updateBlogs} notificationSetter={notificationSetter} blogCreateRef={blogCreateRef}/>
 				</Togglable>
 				{blogs.map(blog =>
 					<Blog key={blog.id} blog={blog} updateBlogs={updateBlogs} notificationSetter={notificationSetter}/>
