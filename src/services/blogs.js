@@ -26,4 +26,11 @@ const saveBlog = async (newObject) =>
 	return (response.data);
 };
 
-export default { getAll, saveBlog, setToken, token }
+const updateBlog = async (id, updatedObject) =>
+{
+	const	response = await axios.put(`${baseUrl}/${id}`, updatedObject);
+
+	return (response.data);
+};
+
+export default { getAll, saveBlog, setToken, updateBlog };
