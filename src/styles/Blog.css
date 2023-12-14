@@ -1,0 +1,32 @@
+.blog
+{
+	display: flex;
+	flex-direction: column;
+}
+
+.blog-title
+{
+	width: 50%;
+	margin: 0.4rem 0;
+}
+
+.toggle-button
+{
+	margin: 0 1rem;
+}
+
+.blog-details
+{
+	margin: 0.2rem;
+}
+
+.blog-likes
+{
+	width: 50%;
+	display: flex;
+}
+
+.blog-likes button
+{
+	padding: 0;
+}
