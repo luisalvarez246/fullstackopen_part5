@@ -2,7 +2,7 @@ import { useState } from "react";
 import '../styles/Blog.css';
 import blogService from '../services/blogs';
 
-const Blog = ({ blog }) => 
+const Blog = ({ blog, setBlogs }) => 
 {
 	const	[showFull, setShowFull] = useState(false);
 	const	[likes, setlikes] = useState(blog.likes);
@@ -22,7 +22,9 @@ const Blog = ({ blog }) =>
 		try
 		{
 			await blogService.updateBlog(blog.id, updatedBlog);
+			const	blogs = await blogService.getAll();
 			setlikes(likes + 1);
+			setBlogs(blogs);
 		}
 		catch(error)
 		{

@@ -69,7 +69,7 @@ const App = () =>
 					<CreateBlog setBlogs={setBlogs} notificationSetter={notificationSetter} blogCreateRef={blogCreateRef}/>
 				</Togglable>
 				{blogs.map(blog =>
-					<Blog key={blog.id} blog={blog} />
+					<Blog key={blog.id} blog={blog} setBlogs={setBlogs}/>
 				)}
 			</>
 		)	
