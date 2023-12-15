@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import blogService from '../services/blogs'
 
 const CreateBlog = ({ updateBlogs, notificationSetter, blogCreateRef }) =>
@@ -18,11 +18,11 @@ const CreateBlog = ({ updateBlogs, notificationSetter, blogCreateRef }) =>
 			const	newMessage = `A new blog ${formData.title} by ${formData.author} added`;
 			notificationSetter({ message: newMessage });
 			setFormData(
-			{
-				title: '',
-				author: '',
-				url: ''
-			})
+				{
+					title: '',
+					author: '',
+					url: ''
+				})
 			await updateBlogs();
 			blogCreateRef.current.toggleVisibility();
 		}
@@ -38,44 +38,44 @@ const CreateBlog = ({ updateBlogs, notificationSetter, blogCreateRef }) =>
 			<form onSubmit={handleBlogCreation}>
 				<fieldset>
 					<label htmlFor="Title">title</label>
-					<input 
+					<input
 						name="Title"
 						id="Title"
 						value={formData.title}
 						onChange={({ target }) => setFormData(prevFormData => (
-						{
-							...prevFormData,
-							title: target.value
-						}))}
+							{
+								...prevFormData,
+								title: target.value
+							}))}
 						type='text'
 						required={true}
 					/>
 				</fieldset>
 				<fieldset>
 					<label htmlFor="Author">author</label>
-					<input 
+					<input
 						name="Author"
 						id="Author"
 						value={formData.author}
 						onChange={({ target }) => setFormData(prevFormData => (
-						{
-							...prevFormData,
-							author: target.value
-						}))}
+							{
+								...prevFormData,
+								author: target.value
+							}))}
 						type='text'
 					/>
 				</fieldset>
 				<fieldset>
 					<label htmlFor="Url">url</label>
-					<input 
+					<input
 						name="Url"
 						id="Url"
 						value={formData.url}
 						onChange={({ target }) => setFormData(prevFormData => (
-						{
-							...prevFormData,
-							url: target.value
-						}))}
+							{
+								...prevFormData,
+								url: target.value
+							}))}
 						type='text'
 						required={true}
 					/>

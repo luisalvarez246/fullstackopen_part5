@@ -6,18 +6,18 @@ import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import blogService from './services/blogs'
 
-const App = () => 
+const App = () =>
 {
 	const	[blogs, setBlogs] = useState([]);
 	const	[user, setUser] = useState(null);
 	const	blogCreateRef = useRef();
 	const	[notification, setNotification] = useState(
-	{
-		newMessage: '',
-		newError: ''
-	})
+		{
+			newMessage: '',
+			newError: ''
+		})
 
-	useEffect(() => 
+	useEffect(() =>
 	{
 		const	loggedUser = window.localStorage.getItem('loggedUser');
 
@@ -34,7 +34,7 @@ const App = () =>
 	{
 		window.localStorage.clear();
 		setUser(null);
-		notificationSetter({message: 'Successfully logged out'});
+		notificationSetter({ message: 'Successfully logged out' });
 	};
 
 	const notificationSetter = (notification) =>
@@ -42,17 +42,17 @@ const App = () =>
 		const	{ message, error } = notification;
 
 		setNotification(
-		{
-			newMessage: message,
-			newError: error
-		})
+			{
+				newMessage: message,
+				newError: error
+			})
 		setTimeout(() =>
 		{
 			setNotification(
-			{
-				newMessage: '',
-				newError: ''
-			})
+				{
+					newMessage: '',
+					newError: ''
+				})
 		}, 5000)
 	};
 
@@ -63,7 +63,7 @@ const App = () =>
 	};
 
 	const blogEntries = () =>
-	{	
+	{
 		return (
 			<>
 				<h2>blogs</h2>
@@ -78,18 +78,18 @@ const App = () =>
 					<Blog key={blog.id} blog={blog} updateBlogs={updateBlogs} notificationSetter={notificationSetter}/>
 				)}
 			</>
-		)	
+		)
 	}
 
-  return (
-	<>
-		<Notification message={notification.newMessage} error={notification.newError} />
-		{user === null ?
-			<Login setUser={setUser} notificationSetter={notificationSetter} /> :
-			blogEntries()
-		}
-    </>
-  )
+	return (
+		<>
+			<Notification message={notification.newMessage} error={notification.newError} />
+			{user === null ?
+				<Login setUser={setUser} notificationSetter={notificationSetter} /> :
+				blogEntries()
+			}
+		</>
+	)
 }
 
 export default App

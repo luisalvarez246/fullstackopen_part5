@@ -9,7 +9,7 @@ const Login = ({ setUser, notificationSetter }) =>
 	const	[password, setPassword] = useState('');
 
 	const handleLogin = async (event) =>
-	{		
+	{
 		event.preventDefault();
 		try
 		{
@@ -29,7 +29,7 @@ const Login = ({ setUser, notificationSetter }) =>
 			notificationSetter({ error: newError });
 		}
 	};
-	
+
 	return (
 		<>
 			<h2>log in to application</h2>
@@ -41,7 +41,7 @@ const Login = ({ setUser, notificationSetter }) =>
 						name='Username'
 						id='Username'
 						value={username}
-						onChange={({target}) => setUsername(target.value)}
+						onChange={({ target }) => setUsername(target.value)}
 					/>
 				</fieldset>
 				<fieldset>
@@ -51,7 +51,7 @@ const Login = ({ setUser, notificationSetter }) =>
 						name='Password'
 						id='Password'
 						value={password}
-						onChange={({target}) => setPassword(target.value)}
+						onChange={({ target }) => setPassword(target.value)}
 					/>
 				</fieldset>
 				<button type='submit'>login</button>

@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState } from 'react';
 import '../styles/Blog.css';
 import blogService from '../services/blogs';
 
-const Blog = ({ blog, updateBlogs, notificationSetter }) => 
+const Blog = ({ blog, updateBlogs, notificationSetter }) =>
 {
 	const	[showFull, setShowFull] = useState(false);
 	const	[likes, setlikes] = useState(blog.likes);
-	
+
 	const toggleBlog = () =>
 	{
 		setShowFull(!showFull);
@@ -41,7 +41,7 @@ const Blog = ({ blog, updateBlogs, notificationSetter }) =>
 				const	newMessage = `blog ${blog.title} was deleted`;
 				await blogService.deleteBlog(blog.id);
 				await updateBlogs();
-				notificationSetter({message: newMessage});
+				notificationSetter({ message: newMessage });
 			}
 			catch(error)
 			{
@@ -72,7 +72,7 @@ const Blog = ({ blog, updateBlogs, notificationSetter }) =>
 					<button onClick={toggleBlog} className="toggle-button">view</button>
 				</section>
 			}
-		</>  
-)}
+		</>
+	)}
 
 export default Blog

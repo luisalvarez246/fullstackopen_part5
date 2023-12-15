@@ -3,7 +3,7 @@ import '../styles/Notification.css';
 const	Notification = ({ message, error }) =>
 {
 	if (message)
-	{		
+	{
 		return (
 			<div className='message'>
 				{message}
