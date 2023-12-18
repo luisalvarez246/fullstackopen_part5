@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import '../styles/Blog.css';
-import blogService from '../services/blogs';
 
 const Blog = ({ blog, updateBlog, deleteBlog, notificationSetter }) =>
 {
