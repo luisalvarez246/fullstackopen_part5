@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import blogService from '../services/blogs'
 
-const CreateBlog = ({ updateBlogs, notificationSetter, blogCreateRef }) =>
+const CreateBlog = ({ saveBlog, notificationSetter, blogCreateRef }) =>
 {
 	const	[formData, setFormData] = useState({
 		title: '',
@@ -14,7 +14,7 @@ const CreateBlog = ({ updateBlogs, notificationSetter, blogCreateRef }) =>
 		event.preventDefault();
 		try
 		{
-			await blogService.saveBlog(formData);
+			await saveBlog(formData);
 			const	newMessage = `A new blog ${formData.title} by ${formData.author} added`;
 			notificationSetter({ message: newMessage });
 			setFormData(
@@ -23,7 +23,6 @@ const CreateBlog = ({ updateBlogs, notificationSetter, blogCreateRef }) =>
 					author: '',
 					url: ''
 				})
-			await updateBlogs();
 			blogCreateRef.current.toggleVisibility();
 		}
 		catch(error)

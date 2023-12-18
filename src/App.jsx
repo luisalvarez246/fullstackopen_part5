@@ -56,12 +56,29 @@ const App = () =>
 		}, 5000)
 	};
 
-	const updateBlogs = async (id, updatedBlog) =>
+	const reloadBlogs = async () =>
 	{
-		await blogService.updateBlog(id, updatedBlog);
 		const	response = await blogService.getAll();
 		setBlogs(response);
+	}
+
+	const updateBlog = async (id, updatedBlog) =>
+	{
+		await blogService.updateBlog(id, updatedBlog);
+		await reloadBlogs();
 	};
+
+	const saveBlog = async (formData) =>
+	{
+		await blogService.saveBlog(formData);
+		await reloadBlogs();
+	}
+
+	const deleteBlog = async (id) =>
+	{
+		await blogService.deleteBlog(id);
+		await reloadBlogs();
+	}
 
 	const blogEntries = () =>
 	{
@@ -73,10 +90,10 @@ const App = () =>
 					<button onClick={cleanStorage}>logout</button>
 				</div>
 				<Togglable buttonLabel='create blog' ref={blogCreateRef}>
-					<CreateBlog updateBlogs={updateBlogs} notificationSetter={notificationSetter} blogCreateRef={blogCreateRef}/>
+					<CreateBlog saveBlog={saveBlog} notificationSetter={notificationSetter} blogCreateRef={blogCreateRef}/>
 				</Togglable>
 				{blogs.map(blog =>
-					<Blog key={blog.id} blog={blog} updateBlogs={updateBlogs} notificationSetter={notificationSetter}/>
+					<Blog key={blog.id} blog={blog} updateBlog={updateBlog} deleteBlog={deleteBlog} notificationSetter={notificationSetter}/>
 				)}
 			</>
 		)
