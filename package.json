@@ -34,6 +34,9 @@
     "vite": "^4.4.5"
   }, 
   "jest": {
-	"testEnvironment": "jsdom"
+	"testEnvironment": "jsdom",
+	"moduleNameMapper": {
+		"\\.(css|less)$": "<rootDir>/src/tests/mocks/styleMock.js"
+	}
   }
 }
