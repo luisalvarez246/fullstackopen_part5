@@ -2,7 +2,7 @@ import { useState } from 'react';
 import '../styles/Blog.css';
 import blogService from '../services/blogs';
 
-const Blog = ({ blog, updateBlogs, notificationSetter }) =>
+const Blog = ({ blog, updateBlog, deleteBlog, notificationSetter }) =>
 {
 	const	[showFull, setShowFull] = useState(false);
 	const	[likes, setlikes] = useState(blog.likes);
@@ -21,7 +21,7 @@ const Blog = ({ blog, updateBlogs, notificationSetter }) =>
 		}
 		try
 		{
-			await updateBlogs(blog.id, updatedBlog);
+			await updateBlog(blog.id, updatedBlog);
 			setlikes(likes + 1);
 		}
 		catch(error)
@@ -38,8 +38,7 @@ const Blog = ({ blog, updateBlogs, notificationSetter }) =>
 			try
 			{
 				const	newMessage = `blog ${blog.title} was deleted`;
-				await blogService.deleteBlog(blog.id);
-				await updateBlogs();
+				await deleteBlog(blog.id);
 				notificationSetter({ message: newMessage });
 			}
 			catch(error)
