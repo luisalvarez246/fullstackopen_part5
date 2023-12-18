@@ -56,8 +56,9 @@ const App = () =>
 		}, 5000)
 	};
 
-	const updateBlogs = async () =>
+	const updateBlogs = async (id, updatedBlog) =>
 	{
+		await blogService.updateBlog(id, updatedBlog);
 		const	response = await blogService.getAll();
 		setBlogs(response);
 	};

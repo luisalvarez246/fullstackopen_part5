@@ -21,9 +21,8 @@ const Blog = ({ blog, updateBlogs, notificationSetter }) =>
 		}
 		try
 		{
-			await blogService.updateBlog(blog.id, updatedBlog);
+			await updateBlogs(blog.id, updatedBlog);
 			setlikes(likes + 1);
-			await updateBlogs();
 		}
 		catch(error)
 		{
@@ -62,10 +61,10 @@ const Blog = ({ blog, updateBlogs, notificationSetter }) =>
 					<p className="blog-details">{blog.url}</p>
 					<div className="blog-likes">
 						<p className="blog-details">likes {likes}</p>
-						<button onClick={handleLikes}>like</button>
+						<button onClick={handleLikes} className="likes-button">like</button>
 					</div>
 					<p className="blog-details">{blog.user.username}</p>
-					<button onClick={handleDeletion}>remove</button>
+					<button onClick={handleDeletion} className="delete-button">remove</button>
 				</section> :
 				<section className="blog-title">
 					{blog.title} {blog.author}
