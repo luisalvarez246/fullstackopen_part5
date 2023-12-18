@@ -67,3 +67,35 @@ test('Blog displays title, author, url and likes when button show is clicked', a
 	expect(author).toBeDefined();
 	expect(urlLikesArray).toBeDefined();
 })
+
+test('Press like button twice triggers updateBlogs twice', async () =>
+{
+	//arrange
+	const	blog =
+		{
+			title: 'Test Title',
+			author: 'Test Author',
+			url: 'Test Url',
+			likes: 0,
+			user:
+				{
+					username: '',
+					id: '',
+					name: ''
+				}
+		}
+	const	ftEmpty = () => {};
+
+	//act
+	const	mockUpdateBlogs = jest.fn();
+	const	{ container } = render(<Blog blog={blog} updateBlogs={mockUpdateBlogs} notificationSetter={ftEmpty} />);
+	const	user = userEvent.setup();
+	const	viewButton = container.querySelector('.toggle-button');
+	await	user.click(viewButton);
+	const	likesButton = container.querySelector('.likes-button');
+	await	user.click(likesButton);
+	await	user.click(likesButton);
+	screen.debug();
+	//assert
+	expect(mockUpdateBlogs.mock.calls).toHaveLength(2);
+})
