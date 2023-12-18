@@ -1,6 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import Blog from '../components/Blog';
 
 test('Blog displays title and author by default, but not url and likes', () =>
@@ -28,4 +29,41 @@ test('Blog displays title and author by default, but not url and likes', () =>
 	expect(title).toBeDefined();
 	expect(author).toBeDefined();
 	expect(urlLikesArray).toBe(null);
+})
+
+test('Blog displays title, author, url and likes when button show is clicked', async () =>
+{
+	//arrange
+	const	blog =
+		{
+			title: 'Test Title',
+			author: 'Test Author',
+			url: 'Test Url',
+			likes: 0,
+			user:
+				{
+					username: '',
+					id: '',
+					name: ''
+				}
+		}
+	let		title;
+	let		author;
+	let		urlLikesArray;
+	const	ftEmpty = () => {};
+
+	//act
+	const	{ container } = render(<Blog blog={blog} updateBlogs={ftEmpty} notificationSetter={ftEmpty} />);
+	const	user = userEvent.setup();
+	const	button = container.querySelector('.toggle-button');
+	await	user.click(button);
+
+	title = screen.getByText(/Test Title/);
+	author = screen.getByText(/Test Author/);
+	urlLikesArray = container.querySelector('.blog-details');
+	screen.debug();
+	//assert
+	expect(title).toBeDefined();
+	expect(author).toBeDefined();
+	expect(urlLikesArray).toBeDefined();
 })
