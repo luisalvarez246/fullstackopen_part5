@@ -10,7 +10,7 @@ describe('Blog App', () =>
 	beforeEach(() =>
 	{
 		cy.request('POST', 'http://localhost:3003/api/testing/reset');
-		// cy.request('POST', 'http://localhost:3003/api/users', user);
+		cy.request('POST', 'http://localhost:3003/api/users', user);
 		cy.visit('http://localhost:5173');
 	})
 
@@ -35,12 +35,27 @@ describe('Blog App', () =>
 		})
 	})
 
-	// it('login form can be opened', () =>
-	// {
-	// 	cy.get('#username').type(user.username);
-	// 	cy.get('#password').type(user.password);
-	// 	cy.get('#login-button').click();
+	describe('Login functionality', () =>
+	{
+		it('succeeds with correct credentials', () =>
+		{
+			cy.get('#username').type(user.username);
+			cy.get('#password').type(user.password);
+			cy.get('#login-button').click();
 
-	// 	cy.contains(`${user.username} logged in`);
-	// })
+			cy.contains(`${user.username} logged in`);
+		})
+
+		it('fails with wrong credentials', () =>
+		{
+			cy.get('#username').type('incorrect');
+			cy.get('#password').type('unknown');
+			cy.get('#login-button').click();
+
+			cy.get('.error')
+				.should('have.css', 'color', 'rgb(255, 0, 0)');
+			cy.contains('incorrect logged in')
+				.should('not.exist');
+		})
+	})
 })
