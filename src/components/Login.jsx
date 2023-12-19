@@ -35,26 +35,26 @@ const Login = ({ setUser, notificationSetter }) =>
 			<h2>log in to application</h2>
 			<form onSubmit={handleLogin}>
 				<fieldset>
-					<label htmlFor='Username'>Username</label>
+					<label htmlFor='username'>Username</label>
 					<input
 						type='text'
-						name='Username'
-						id='Username'
+						name='username'
+						id='username'
 						value={username}
 						onChange={({ target }) => setUsername(target.value)}
 					/>
 				</fieldset>
 				<fieldset>
-					<label htmlFor='Password'>Password</label>
+					<label htmlFor='password'>Password</label>
 					<input
 						type='password'
-						name='Password'
-						id='Password'
+						name='password'
+						id='password'
 						value={password}
 						onChange={({ target }) => setPassword(target.value)}
 					/>
 				</fieldset>
-				<button type='submit'>login</button>
+				<button id='login-button' type='submit'>login</button>
 			</form>
 		</>
 	);
