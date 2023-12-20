@@ -7,10 +7,18 @@ describe('Blog App', () =>
 		name: 'Bumby'
 	}
 
+	const	secondUser =
+	{
+		username: 'testuser',
+		password: 'testuser',
+		name: 'testuser'
+	}
+
 	beforeEach(() =>
 	{
 		cy.request('POST', `${Cypress.env('BACKEND')}/testing/reset`);
 		cy.request('POST', `${Cypress.env('BACKEND')}/users`, user);
+		cy.request('POST', `${Cypress.env('BACKEND')}/users`, secondUser);
 		cy.visit('');
 	})
 
@@ -102,13 +110,25 @@ describe('Blog App', () =>
 			})
 		})
 
-		it.only('A blog can be liked', () =>
+		it('A blog can be liked', () =>
 		{
 			cy.createBlog(blog);
 			cy.get('.toggle-button').click();
 			cy.get('.likes-button').click();
 			cy.get('html')
 				.should('contain', 'likes 1');
+		})
+
+		describe('Blog deletion', () =>
+		{
+			it.only('user who created a blog can delete it', () =>
+			{
+				cy.createBlog(blog);
+				cy.get('.toggle-button').click();
+				cy.get('.delete-button').click();
+				cy.get('html')
+					.should('not.contain', 'Test Author');
+			})
 		})
 	})
 })
