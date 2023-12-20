@@ -35,7 +35,7 @@ Cypress.Commands.add('login', (user) =>
 		})
 })
 
-// -- This will add a new blog --
+// -- This will add a new blog directly through --
 Cypress.Commands.add('createBlog', ({ title, author, url }) =>
 {
 	cy.request(
