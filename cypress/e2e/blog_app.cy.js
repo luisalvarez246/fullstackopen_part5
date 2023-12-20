@@ -9,9 +9,9 @@ describe('Blog App', () =>
 
 	beforeEach(() =>
 	{
-		cy.request('POST', 'http://localhost:3003/api/testing/reset');
-		cy.request('POST', 'http://localhost:3003/api/users', user);
-		cy.visit('http://localhost:5173');
+		cy.request('POST', `${Cypress.env('BACKEND')}/testing/reset`);
+		cy.request('POST', `${Cypress.env('BACKEND')}/users`, user);
+		cy.visit('');
 	})
 
 	it('front page can be opened', () =>
@@ -56,6 +56,29 @@ describe('Blog App', () =>
 				.should('have.css', 'color', 'rgb(255, 0, 0)');
 			cy.contains('incorrect logged in')
 				.should('not.exist');
+		})
+	})
+
+	describe('When logged in', () =>
+	{
+		const	blog =
+		{
+			title: 'Test Title',
+			author: 'Test Author',
+			url: 'e2e.com'
+		}
+
+		beforeEach(() =>
+		{
+			cy.login(user);
+		})
+
+		it('A blog can be created', () =>
+		{
+			cy.createBlog(blog);
+			cy.get('html')
+				.should('contain', 'Test Title')
+				.and('contain', 'Test Author');
 		})
 	})
 })
