@@ -121,13 +121,27 @@ describe('Blog App', () =>
 
 		describe('Blog deletion', () =>
 		{
-			it.only('user who created a blog can delete it', () =>
+			beforeEach(() =>
 			{
 				cy.createBlog(blog);
+
+			})
+
+			it('user who created a blog can delete it', () =>
+			{
 				cy.get('.toggle-button').click();
 				cy.get('.delete-button').click();
 				cy.get('html')
 					.should('not.contain', 'Test Author');
+			})
+
+			it.only('user who created a blog can delete it', () =>
+			{
+				cy.get('.logout-button').click();
+				cy.login(secondUser);
+				cy.get('.toggle-button').click();
+				cy.get('.delete-button')
+					.should('have.css', 'display', 'none');
 			})
 		})
 	})
