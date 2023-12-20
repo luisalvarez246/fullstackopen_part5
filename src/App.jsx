@@ -87,7 +87,7 @@ const App = () =>
 				<h2>blogs</h2>
 				<div>
 					<p>{user.username} logged in</p>
-					<button onClick={cleanStorage}>logout</button>
+					<button onClick={cleanStorage} className="logout-button">logout</button>
 				</div>
 				<Togglable buttonLabel='create blog' ref={blogCreateRef}>
 					<CreateBlog saveBlog={saveBlog} notificationSetter={notificationSetter} blogCreateRef={blogCreateRef}/>
