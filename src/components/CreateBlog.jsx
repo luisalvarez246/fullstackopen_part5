@@ -36,10 +36,10 @@ const CreateBlog = ({ saveBlog, notificationSetter, blogCreateRef }) =>
 			<h2>Create new</h2>
 			<form onSubmit={handleBlogCreation}>
 				<fieldset>
-					<label htmlFor="Title">title</label>
+					<label htmlFor="title">title</label>
 					<input
-						name="Title"
-						id="Title"
+						name="title"
+						id="title"
 						value={formData.title}
 						onChange={({ target }) => setFormData(prevFormData => (
 							{
@@ -51,10 +51,10 @@ const CreateBlog = ({ saveBlog, notificationSetter, blogCreateRef }) =>
 					/>
 				</fieldset>
 				<fieldset>
-					<label htmlFor="Author">author</label>
+					<label htmlFor="author">author</label>
 					<input
-						name="Author"
-						id="Author"
+						name="author"
+						id="author"
 						value={formData.author}
 						onChange={({ target }) => setFormData(prevFormData => (
 							{
@@ -65,10 +65,10 @@ const CreateBlog = ({ saveBlog, notificationSetter, blogCreateRef }) =>
 					/>
 				</fieldset>
 				<fieldset>
-					<label htmlFor="Url">url</label>
+					<label htmlFor="url">url</label>
 					<input
-						name="Url"
-						id="Url"
+						name="url"
+						id="url"
 						value={formData.url}
 						onChange={({ target }) => setFormData(prevFormData => (
 							{
