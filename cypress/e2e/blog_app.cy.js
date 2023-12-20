@@ -73,12 +73,42 @@ describe('Blog App', () =>
 			cy.login(user);
 		})
 
-		it('A blog can be created', () =>
+		describe('A blog can be created', () =>
+		{
+			it('through the form', () =>
+			{
+				cy.contains('create blog').click();
+				cy.get('form').within(() =>
+				{
+					cy.get('input[name="title"]')
+						.type(blog.title);
+					cy.get('input[name="author"]')
+						.type(blog.author);
+					cy.get('input[name="url"]')
+						.type(blog.url);
+					cy.contains('create').click();
+				})
+				cy.get('html')
+					.should('contain', 'Test Title')
+					.and('contain', 'Test Author');
+			})
+
+			it('directly through the backend', () =>
+			{
+				cy.createBlog(blog);
+				cy.get('html')
+					.should('contain', 'Test Title')
+					.and('contain', 'Test Author');
+			})
+		})
+
+		it.only('A blog can be liked', () =>
 		{
 			cy.createBlog(blog);
+			cy.get('.toggle-button').click();
+			cy.get('.likes-button').click();
 			cy.get('html')
-				.should('contain', 'Test Title')
-				.and('contain', 'Test Author');
+				.should('contain', 'likes 1');
 		})
 	})
 })
