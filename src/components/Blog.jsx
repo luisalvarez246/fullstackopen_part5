@@ -5,6 +5,8 @@ const Blog = ({ blog, updateBlog, deleteBlog, notificationSetter }) =>
 {
 	const	[showFull, setShowFull] = useState(false);
 	const	[likes, setlikes] = useState(blog.likes);
+	const	parsedUser = JSON.parse(localStorage.getItem('loggedUser'));
+	const	isVisible = { display: parsedUser.username === blog.user.username ? '' : 'none' };
 
 	const toggleBlog = () =>
 	{
@@ -62,7 +64,7 @@ const Blog = ({ blog, updateBlog, deleteBlog, notificationSetter }) =>
 						<button onClick={handleLikes} className="likes-button">like</button>
 					</div>
 					<p className="blog-details">{blog.user.username}</p>
-					<button onClick={handleDeletion} className="delete-button">remove</button>
+					<button onClick={handleDeletion} className="delete-button" style={isVisible}>remove</button>
 				</section> :
 				<section className="blog-title">
 					{blog.title} {blog.author}
