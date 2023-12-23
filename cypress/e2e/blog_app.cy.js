@@ -135,7 +135,7 @@ describe('Blog App', () =>
 					.should('not.contain', 'Test Author');
 			})
 
-			it.only('user who created a blog can delete it', () =>
+			it('user who is not owner of a blog cannot delete it', () =>
 			{
 				cy.get('.logout-button').click();
 				cy.login(secondUser);
@@ -143,6 +143,38 @@ describe('Blog App', () =>
 				cy.get('.delete-button')
 					.should('have.css', 'display', 'none');
 			})
+		})
+
+		it('Blogs are sorted by most likes', () =>
+		{
+			const	blog =
+			{
+				title: 'Test Title1',
+				author: 'Test Author1',
+				url: 'e2e.com',
+				likes: 20
+			}
+			const	blog2 =
+			{
+				title: 'Test Title2',
+				author: 'Test Author2',
+				url: 'e2e.com',
+				likes: 10
+			}
+			const	blog3 =
+			{
+				title: 'Test Title3',
+				author: 'Test Author3',
+				url: 'e2e.com',
+				likes: 5
+			}
+
+			cy.createBlog(blog2);
+			cy.createBlog(blog3);
+			cy.createBlog(blog);
+			cy.get('.blog-title').eq(0).should('contain', 'Test Title1');
+			cy.get('.blog-title').eq(1).should('contain', 'Test Title2');
+			cy.get('.blog-title').eq(2).should('contain', 'Test Title3');
 		})
 	})
 })
