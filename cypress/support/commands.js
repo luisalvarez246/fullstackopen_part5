@@ -36,13 +36,13 @@ Cypress.Commands.add('login', (user) =>
 })
 
 // -- This will add a new blog directly through --
-Cypress.Commands.add('createBlog', ({ title, author, url }) =>
+Cypress.Commands.add('createBlog', (blog) =>
 {
 	cy.request(
 		{
 			url: `${Cypress.env('BACKEND')}/blogs`,
 			method: 'POST',
-			body: { title, author, url },
+			body: blog,
 			headers:
 			{
 				Authorization: `bearer ${JSON.parse(localStorage.getItem('loggedUser')).token}`
